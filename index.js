@@ -138,13 +138,13 @@ app.get("/dairy/:dairyId", (req, res) => {
 });
 
 //this one updates an API
-app.put("/produce", (req, res) => {
+app.patch("/produce/:produceId", (req, res) => {
   const db = connectToFirestore();
-  const { id, organic } = req.body;
+  const { produceId } = req.params;
+  // const { produceId, price } = req.body;
   prodRef
-    .doc()
-    .update({ organic: Boolean, id: id })
-    .add(req.body)
+    .doc(produceId)
+    .update(req.body)
     .then(() => res.send("Produce updated"))
     .catch(console.error);
 });
